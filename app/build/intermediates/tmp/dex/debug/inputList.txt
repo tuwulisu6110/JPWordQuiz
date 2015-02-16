@@ -1,0 +1,2 @@
+E:\WordQuiz\app\build\intermediates\classes\debug
+E:\WordQuiz\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-3e5e8ab3bfbfdf00304f21a1fb39bdeb37469168.jar
