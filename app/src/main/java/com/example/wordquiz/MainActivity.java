@@ -3,7 +3,7 @@ package com.example.wordquiz;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
-
+import FunctionalTab.FunctionalTab;
 /**
  * Created by tuwulisu on 2015/2/13.
  */
@@ -18,8 +18,8 @@ public class MainActivity extends FragmentActivity
         mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
-        mTabHost.addTab(mTabHost.newTabSpec("simple").setIndicator("Simple"),
-                FragmentTest.class, null);
-
+        mTabHost.addTab(mTabHost.newTabSpec("functions").setIndicator("Functions"),
+                FunctionalTab.class, null);
     }
+
 }

@@ -4,6 +4,7 @@ import networkThread.LoginTask;
 import networkThread.RegisterTask;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -40,7 +41,9 @@ public class LoginActivity extends Activity
 				loginInfo[0] = usernameET.getText().toString();
 				loginInfo[1] = passwordET.getText().toString();
 				LoginTask lt = new LoginTask(context);
-				lt.execute(loginInfo);
+				//lt.execute(loginInfo);
+                Intent switchIntent = new Intent(context,com.example.wordquiz.MainActivity.class);
+                context.startActivity(switchIntent);
 			}
 		});
 		
