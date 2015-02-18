@@ -18,6 +18,7 @@ public class FunctionalTab extends Fragment
     private Button newTab;
     private View v;
     private FragmentTabHost mTabHost;
+    private int count;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -31,13 +32,17 @@ public class FunctionalTab extends Fragment
         v = inflater.inflate(R.layout.functional_tab,container,false);
         newTab = (Button)v.findViewById(R.id.newTab);
         mTabHost = (FragmentTabHost)getActivity().findViewById(android.R.id.tabhost);
+        count = 0;
         newTab.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                mTabHost.addTab(mTabHost.newTabSpec("simple").setIndicator("Simple"),
-                        FragmentTest.class, null);
+                Bundle bundle = new Bundle();
+                bundle.putInt("count",count);
+                mTabHost.addTab(mTabHost.newTabSpec("simple"+ Integer.toString(count)).setIndicator("Simple"+ Integer.toString(count)),
+                        FragmentTest.class, bundle);
+                count++;
             }
         });
         return v;
