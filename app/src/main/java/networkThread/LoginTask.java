@@ -19,6 +19,7 @@ import com.example.wordquiz.R;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -88,6 +89,9 @@ public class LoginTask extends AsyncTask<String, Void, String>
 		if(result.equals("success"))
 		{
             Intent switchIntent = new Intent(context,com.example.wordquiz.MainActivity.class);
+            Bundle b = new Bundle();
+            b.putString("username",loginInfo[0]);
+            switchIntent.putExtras(b);
             context.startActivity(switchIntent);
 		}
 	}

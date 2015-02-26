@@ -43,6 +43,9 @@ public class LoginActivity extends Activity
 				LoginTask lt = new LoginTask(context);
 				//lt.execute(loginInfo);
                 Intent switchIntent = new Intent(context,com.example.wordquiz.MainActivity.class);
+                Bundle b = new Bundle();
+                b.putString("username",usernameET.getText().toString());
+                switchIntent.putExtras(b);
                 context.startActivity(switchIntent);
 			}
 		});

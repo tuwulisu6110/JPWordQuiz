@@ -18,10 +18,13 @@ public class AddNewWordTab extends Fragment
     private EditText wordET;
     private EditText readingET;
     private EditText meaningET;
+    private String username;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        username = getArguments().getString("username");
+
     }
 
     @Override
