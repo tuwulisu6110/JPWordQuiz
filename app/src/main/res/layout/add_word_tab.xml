@@ -4,60 +4,126 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:weightSum="1">
-
-    <TextView
-        android:layout_width="72dp"
-        android:layout_height="39dp"
-        android:text="単語"
-        android:id="@+id/newWordTextField"
-        android:layout_gravity="center_horizontal"
-        android:textSize="10pt"
-        android:gravity="center"/>
-
-    <EditText
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/wordText"
-        android:layout_margin="5pt"/>
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_gravity="center_horizontal">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
-    <TextView
-        android:layout_width="129dp"
-        android:layout_height="wrap_content"
-        android:text="読み方"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:layout_weight="0.05"
-        android:textSize="10pt"/>
+            <TextView
+                    android:layout_width="72dp"
+                    android:layout_height="39dp"
+                    android:text="単語"
+                    android:id="@+id/newWordTextField"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="10pt"
+                    android:gravity="center"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/readingText"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="5pt"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/wordText"
+                android:layout_margin="5pt"/>
 
-    <TextView
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:text="意味"
-        android:id="@+id/textView2"
-        android:layout_gravity="center_horizontal"
-        android:textSize="10pt"
-        android:layout_weight="0.07"
-        android:gravity="center"/>
+            <TextView
+                android:layout_width="129dp"
+                android:layout_height="wrap_content"
+                android:text="読み方"
+                android:id="@+id/textView"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:layout_weight="0.05"
+                android:textSize="10pt"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/meaningText"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="5pt"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/readingText"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5pt"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:id="@+id/submitButton"
-        android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="意味"
+                android:id="@+id/textView2"
+                android:layout_gravity="center_horizontal"
+                android:textSize="10pt"
+                android:layout_weight="0.07"
+                android:gravity="center"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/meaningText"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5pt"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ソース"
+                android:id="@+id/textView3"
+                android:layout_gravity="center_horizontal"
+                android:textSize="10pt"
+                android:gravity="center"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/horizontalScrollView"
+                android:layout_gravity="center_horizontal">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <RadioGroup
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="horizontal"
+                        android:id="@+id/sourceRadioGroup">
+
+                    </RadioGroup>
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="new source"
+                        android:id="@+id/newSourceButton"/>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ページ"
+                android:id="@+id/textView4"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:textSize="10pt"
+                android:textIsSelectable="false"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pageText"
+                android:layout_gravity="center_horizontal"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:id="@+id/submitButton"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
