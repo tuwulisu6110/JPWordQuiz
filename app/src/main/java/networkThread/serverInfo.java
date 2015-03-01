@@ -10,4 +10,5 @@ public class ServerInfo
     static final String serverRegisterURL = serverURL+"/register";
     static final String serverListSourceURL = serverURL+"/listSource";
     static final String serverAddSourceURL = serverURL+"/addSource";
+    static final String serverAddWordURL = serverURL+"/addWord";
 }

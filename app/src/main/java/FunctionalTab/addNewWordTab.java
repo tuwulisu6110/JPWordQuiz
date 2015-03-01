@@ -14,6 +14,9 @@ import android.widget.RadioGroup;
 
 import com.example.wordquiz.R;
 
+import java.util.ArrayList;
+
+import networkThread.AddWordTask;
 import networkThread.NewSourceTask;
 import networkThread.RefreshRadioGroupTask;
 
@@ -57,7 +60,20 @@ public class AddNewWordTab extends Fragment
             @Override
             public void onClick(View view)
             {
-
+                ArrayList<EditText> ets = new ArrayList<EditText>();
+                ArrayList<String> wordInfo = new ArrayList<String>();
+                ets.add(wordET);
+                ets.add(readingET);
+                ets.add(meaningET);
+                ets.add(pageET);
+                wordInfo.add(username);
+                wordInfo.add(wordET.getText().toString());
+                wordInfo.add(readingET.getText().toString());
+                wordInfo.add(meaningET.getText().toString());
+                wordInfo.add(String.valueOf(sourceRadioGroup.getCheckedRadioButtonId()));
+                wordInfo.add(pageET.getText().toString());
+                AddWordTask task = new AddWordTask(getActivity(),(EditText[])ets.toArray());
+                task.execute((String[])wordInfo.toArray());
             }
         });
         newSourceBtn.setOnClickListener(new View.OnClickListener()
