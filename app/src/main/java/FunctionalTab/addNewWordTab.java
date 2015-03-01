@@ -1,6 +1,9 @@
 package FunctionalTab;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.preference.DialogPreference;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +13,9 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import com.example.wordquiz.R;
+
+import networkThread.NewSourceTask;
+import networkThread.RefreshRadioGroupTask;
 
 /**
  * Created by tuwulisu on 2015/2/18.
@@ -44,6 +50,8 @@ public class AddNewWordTab extends Fragment
         pageET = (EditText)v.findViewById(R.id.pageText);
         sourceRadioGroup = (RadioGroup)v.findViewById(R.id.sourceRadioGroup);
         newSourceBtn = (Button)v.findViewById(R.id.newSourceButton);
+        RefreshRadioGroupTask task = new RefreshRadioGroupTask(getActivity(),sourceRadioGroup,newSourceBtn,username);
+        task.execute();
         submitButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -57,7 +65,31 @@ public class AddNewWordTab extends Fragment
             @Override
             public void onClick(View view)
             {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+                final EditText input = new EditText(getActivity());
+                builder.setView(input);
+
+                builder.setPositiveButton("OK",new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        //pass source name to NewSourceTask for network connection
+                        String sourceName = input.getText().toString();
+                        NewSourceTask task = new NewSourceTask(getActivity(),username,sourceName,sourceRadioGroup,newSourceBtn);
+                        task.execute();
+                        dialogInterface.cancel();
+                    }
+                });
+                builder.setNegativeButton("Cancel",new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        dialogInterface.cancel();
+                    }
+                });
             }
         });
         return v;

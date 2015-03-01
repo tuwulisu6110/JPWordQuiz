@@ -47,15 +47,14 @@ public class LoginTask extends AsyncTask<String, Void, String>
 			loginContent.setContentEncoding("UTF-8");
 			loginContent.setContentType("application/json");
 			DefaultHttpClient httpclient = new DefaultHttpClient();
-			URI website;
-			website = new URI("http://220.135.188.70:5000/login");
-			HttpPost httpost = new HttpPost(website);
+			HttpPost httpost = new HttpPost(new URI(ServerInfo.serverLoginURL));
 			httpost.setEntity(loginContent);
 			httpost.addHeader("Accept", "text/plain");
 			ResponseHandler responseHandler = new BasicResponseHandler();
 			String inputLine = httpclient.execute(httpost, responseHandler).toString();
 			
 		    JSONObject response = new JSONObject(inputLine);
+
 		    result = response.getString("status");
 		} 
 		catch (JSONException e2) 

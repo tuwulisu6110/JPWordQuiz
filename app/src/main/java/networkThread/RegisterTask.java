@@ -41,9 +41,7 @@ public class RegisterTask extends AsyncTask<String, Void, String>
 			registerContent.setContentEncoding("UTF-8");
 			registerContent.setContentType("application/json");
 			DefaultHttpClient httpclient = new DefaultHttpClient();
-			URI website;
-			website = new URI("http://220.135.188.70:5000/register");
-			HttpPost httpost = new HttpPost(website);
+            HttpPost httpost = new HttpPost(new URI(ServerInfo.serverRegisterURL));
 			httpost.setEntity(registerContent);
 			httpost.addHeader("Accept", "text/plain");
 			ResponseHandler responseHandler = new BasicResponseHandler();
