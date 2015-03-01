@@ -38,7 +38,6 @@ public class AddNewWordTab extends Fragment
     {
         super.onCreate(savedInstanceState);
         username = getArguments().getString("username");
-
     }
 
     @Override
