@@ -41,12 +41,12 @@ public class LoginActivity extends Activity
 				loginInfo[0] = usernameET.getText().toString();
 				loginInfo[1] = passwordET.getText().toString();
 				LoginTask lt = new LoginTask(context);
-				//lt.execute(loginInfo);
-                Intent switchIntent = new Intent(context,com.example.wordquiz.MainActivity.class);
-                Bundle b = new Bundle();
-                b.putString("username",usernameET.getText().toString());
-                switchIntent.putExtras(b);
-                context.startActivity(switchIntent);
+				lt.execute(loginInfo);
+//                Intent switchIntent = new Intent(context,com.example.wordquiz.MainActivity.class);
+//                Bundle b = new Bundle();
+//                b.putString("username",usernameET.getText().toString());
+//                switchIntent.putExtras(b);
+//                context.startActivity(switchIntent);
 			}
 		});
 		
