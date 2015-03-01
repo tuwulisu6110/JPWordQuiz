@@ -19,9 +19,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by tuwulisu on 2015/2/28.
@@ -59,7 +56,7 @@ public class RefreshRadioGroupTask extends AsyncTask<Void , Void, JSONObject>
             accountContent.setContentEncoding("UTF-8");
             accountContent.setContentType("application/json");
             DefaultHttpClient httpclient = new DefaultHttpClient();
-            HttpPost httpost = new HttpPost(new URI(ServerInfo.serverListSourceURL));
+            HttpPost httpost = new HttpPost(new URI(ServerInformation.serverListSourceURL));
             httpost.setEntity(accountContent);
             httpost.addHeader("Accept", "text/plain");
             ResponseHandler responseHandler = new BasicResponseHandler();

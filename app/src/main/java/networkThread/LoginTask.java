@@ -13,14 +13,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.wordquiz.LoginActivity;
-import com.example.wordquiz.R;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.Toast;
 
 
@@ -47,7 +43,7 @@ public class LoginTask extends AsyncTask<String, Void, String>
 			loginContent.setContentEncoding("UTF-8");
 			loginContent.setContentType("application/json");
 			DefaultHttpClient httpclient = new DefaultHttpClient();
-			HttpPost httpost = new HttpPost(new URI(ServerInfo.serverLoginURL));
+			HttpPost httpost = new HttpPost(new URI(ServerInformation.serverLoginURL));
 			httpost.setEntity(loginContent);
 			httpost.addHeader("Accept", "text/plain");
 			ResponseHandler responseHandler = new BasicResponseHandler();

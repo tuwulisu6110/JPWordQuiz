@@ -13,11 +13,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.wordquiz.R;
-
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.EditText;
 import android.widget.Toast;
 
 public class RegisterTask extends AsyncTask<String, Void, String> 
@@ -41,7 +38,7 @@ public class RegisterTask extends AsyncTask<String, Void, String>
 			registerContent.setContentEncoding("UTF-8");
 			registerContent.setContentType("application/json");
 			DefaultHttpClient httpclient = new DefaultHttpClient();
-            HttpPost httpost = new HttpPost(new URI(ServerInfo.serverRegisterURL));
+            HttpPost httpost = new HttpPost(new URI(ServerInformation.serverRegisterURL));
 			httpost.setEntity(registerContent);
 			httpost.addHeader("Accept", "text/plain");
 			ResponseHandler responseHandler = new BasicResponseHandler();

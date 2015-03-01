@@ -61,7 +61,7 @@ public class NewSourceTask extends AsyncTask<Void,Void,Integer>
             Content.setContentEncoding("UTF-8");
             Content.setContentType("application/json");
             DefaultHttpClient httpclient = new DefaultHttpClient();
-            HttpPost httpost = new HttpPost(new URI(ServerInfo.serverAddSourceURL));
+            HttpPost httpost = new HttpPost(new URI(ServerInformation.serverAddSourceURL));
             httpost.setEntity(Content);
             httpost.addHeader("Accept", "text/plain");
             ResponseHandler responseHandler = new BasicResponseHandler();

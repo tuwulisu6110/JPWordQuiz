@@ -56,7 +56,7 @@ public class AddWordTask extends AsyncTask<String,Void,String>
             Content.setContentEncoding("UTF-8");
             Content.setContentType("application/json");
             DefaultHttpClient httpclient = new DefaultHttpClient();
-            HttpPost httpost = new HttpPost(new URI(ServerInfo.serverAddWordURL));
+            HttpPost httpost = new HttpPost(new URI(ServerInformation.serverAddWordURL));
             httpost.setEntity(Content);
             httpost.addHeader("Accept", "text/plain");
             ResponseHandler responseHandler = new BasicResponseHandler();
