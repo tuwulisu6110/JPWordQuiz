@@ -71,8 +71,8 @@ public class AddNewWordTab extends Fragment
                 wordInfo.add(meaningET.getText().toString());
                 wordInfo.add(String.valueOf(sourceRadioGroup.getCheckedRadioButtonId()));
                 wordInfo.add(pageET.getText().toString());
-                AddWordTask task = new AddWordTask(getActivity(),(EditText[])ets.toArray());
-                task.execute((String[])wordInfo.toArray());
+                AddWordTask task = new AddWordTask(getActivity(),ets,wordInfo);
+                task.execute();
             }
         });
         newSourceBtn.setOnClickListener(new View.OnClickListener()
@@ -105,6 +105,7 @@ public class AddNewWordTab extends Fragment
                         dialogInterface.cancel();
                     }
                 });
+                builder.show();
             }
         });
         return v;

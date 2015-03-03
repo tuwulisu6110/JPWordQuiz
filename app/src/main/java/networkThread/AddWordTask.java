@@ -19,29 +19,32 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 /**
  * Created by tuwulisu on 2015/3/1.
  */
-public class AddWordTask extends AsyncTask<String,Void,String>
+public class AddWordTask extends AsyncTask<Void,Void,String>
 {
     Context context;
-    EditText[] forEmptyList;
-    public AddWordTask(Context context,EditText[] ets)
+    ArrayList<EditText> forEmptyList;
+    ArrayList<String> info;
+    public AddWordTask(Context context,ArrayList<EditText> ets,ArrayList<String> info)
     {
         this.context = context;
         forEmptyList = ets; // include all editTexts in addNewWordTab will be cleared about text
+        this.info = info;
     }
 
     @Override
-    protected String doInBackground(String... info)
+    protected String doInBackground(Void... aVoid)
     {
-        String username = info[0];
-        String word = info[1];
-        String reading = info[2];
-        String meaning = info[3];
-        String sourceId = info[4];
-        String page = info[5];
+        String username = info.get(0);
+        String word = info.get(1);
+        String reading = info.get(2);
+        String meaning = info.get(3);
+        String sourceId = info.get(4);
+        String page = info.get(5);
         String result = "FAIL";
         try
         {

@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Iterator;
 
 /**
  * Created by tuwulisu on 2015/2/28.
@@ -92,10 +93,11 @@ public class RefreshRadioGroupTask extends AsyncTask<Void , Void, JSONObject>
     protected void onPostExecute(JSONObject sources)
     {
         super.onPostExecute(sources);
-        while(sourceTable.keys().hasNext())
+        Iterator iterator = sourceTable.keys();
+        while(iterator.hasNext())
         {
             RadioButton rBtn = new RadioButton(context);
-            String key = sourceTable.keys().next().toString();
+            String key = iterator.next().toString();
             try
             {
                 rBtn.setText(sourceTable.getString(key));
