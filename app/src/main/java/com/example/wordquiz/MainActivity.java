@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentTabHost;
 import FunctionalTab.AddNewWordTab;
 import java.util.ArrayList;
 
-import FunctionalTab.FunctionalTab;
 
 /**
  * Created by tuwulisu on 2015/2/13.
