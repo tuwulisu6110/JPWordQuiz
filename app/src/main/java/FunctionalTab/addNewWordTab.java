@@ -69,7 +69,7 @@ public class AddNewWordTab extends Fragment
                 wordInfo.add(wordET.getText().toString());
                 wordInfo.add(readingET.getText().toString());
                 wordInfo.add(meaningET.getText().toString());
-                wordInfo.add(String.valueOf(sourceRadioGroup.getCheckedRadioButtonId()));
+                wordInfo.add(String.valueOf(sourceRadioGroup.getCheckedRadioButtonId()));//if no radioBtn is checked it will be -1
                 wordInfo.add(pageET.getText().toString());
                 AddWordTask task = new AddWordTask(getActivity(),ets,wordInfo);
                 task.execute();

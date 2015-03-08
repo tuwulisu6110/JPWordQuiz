@@ -35,10 +35,12 @@ public class FetchAndSearchTask extends AsyncTask<Void,Void,JSONArray>
     private ListView wordList;
     private String query;
     private Context context;
+    private String username;
     private JSONArray words;//this will be used in wordAdapter as itemlist input, directly use in onPostExecute()
     boolean isBackgroundTaskEnd;
-    public FetchAndSearchTask(Context c,ListView lv,String query)
+    public FetchAndSearchTask(Context c,String username,ListView lv,String query)
     {
+        this.username = username;
         wordList = lv;
         this.query = query;
         context = c;
@@ -53,6 +55,7 @@ public class FetchAndSearchTask extends AsyncTask<Void,Void,JSONArray>
         {
             JSONObject Info = new JSONObject();
             Info.put("word",query);
+            Info.put("username",username);
             StringEntity Content = new StringEntity(Info.toString());
             Content.setContentEncoding("UTF-8");
             Content.setContentType("application/json");
@@ -133,12 +136,13 @@ public class FetchAndSearchTask extends AsyncTask<Void,Void,JSONArray>
             view = mInflater.inflate(R.layout.word_list_item,null);
             TextView wordTV = (TextView)view.findViewById(R.id.wordTextView);
             TextView readingTV = (TextView)view.findViewById(R.id.readingTextView);
-            TextView meaningTV = (TextView)view.findViewById(R.id.meaningText);
+            TextView meaningTV = (TextView)view.findViewById(R.id.meaningTextView);
             try
             {
-                wordTV.setText(new JSONObject(words.get(i).toString()).getString("word"));
-                readingTV.setText(new JSONObject(words.get(i).toString()).getString("reading"));
-                meaningTV.setText(new JSONObject(words.get(i).toString()).getString("meaning"));
+                JSONObject aWord = new JSONObject(words.get(i).toString());
+                wordTV.setText(aWord.getString("word"));
+                readingTV.setText(aWord.getString("reading"));
+                meaningTV.setText(aWord.getString("meaning"));
             }
             catch (JSONException e)
             {
