@@ -105,7 +105,8 @@ public class AddWordTask extends AsyncTask<Bundle,Void,String>
     protected void onPostExecute(String s)
     {
         super.onPostExecute(s);
-        taskTool.checkStatusAndReturnLogin(context,status);
+        if(taskTool.checkStatusAndReturnLogin(context,status))
+            return;
         if(s.equals("FAIL"))
             Log.i("AddNewWordTask","result = FAIL in onPostExecute");
         else

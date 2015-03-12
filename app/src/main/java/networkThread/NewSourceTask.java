@@ -104,7 +104,8 @@ public class NewSourceTask extends AsyncTask<Void,Void,Integer>
     protected void onPostExecute(Integer lastId)
     {
         super.onPostExecute(lastId);
-        taskTool.checkStatusAndReturnLogin(context,status);
+        if(taskTool.checkStatusAndReturnLogin(context,status))
+            return;
         if(lastId==0)
             Log.i("NewSourceTask","lastId == 0");
         else

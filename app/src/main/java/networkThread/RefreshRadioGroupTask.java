@@ -102,7 +102,8 @@ public class RefreshRadioGroupTask extends AsyncTask<Void , Void, JSONObject>
     protected void onPostExecute(JSONObject sources)
     {
         super.onPostExecute(sources);
-        taskTool.checkStatusAndReturnLogin(context,status);
+        if(taskTool.checkStatusAndReturnLogin(context,status))
+            return;
         Iterator iterator = sourceTable.keys();
         while(iterator.hasNext())
         {

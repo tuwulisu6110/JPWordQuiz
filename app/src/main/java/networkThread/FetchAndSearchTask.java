@@ -99,7 +99,8 @@ public class FetchAndSearchTask extends AsyncTask<Void,Void,JSONArray>
     protected void onPostExecute(JSONArray words)
     {
         super.onPostExecute(words);
-        taskTool.checkStatusAndReturnLogin(context,status);
+        if(taskTool.checkStatusAndReturnLogin(context,status))
+            return;
         wordList.setAdapter(new WordAdapter(context));
 
     }

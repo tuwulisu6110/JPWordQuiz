@@ -12,7 +12,7 @@ public class taskTool
 {
     public static boolean checkStatusAndReturnLogin(Context c, String status)
     {
-        if(status.equals("success")!=true)
+        if(status == null || status.equals("success")!=true)
         {
             Intent returnIntent = new Intent(c,com.example.wordquiz.LoginActivity.class);
             c.startActivity(returnIntent);
