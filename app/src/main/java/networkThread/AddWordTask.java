@@ -2,6 +2,7 @@ package networkThread;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,20 +26,23 @@ import java.util.ArrayList;
 /**
  * Created by tuwulisu on 2015/3/1.
  */
-public class AddWordTask extends AsyncTask<Void,Void,String>
+public class AddWordTask extends AsyncTask<Bundle,Void,String>
 {
     Context context;
     ArrayList<EditText> forEmptyList;
     ArrayList<String> info;
-    public AddWordTask(Context context,ArrayList<EditText> ets,ArrayList<String> info)
+    private Bundle LoginInfo;
+    private String status;
+    public AddWordTask(Context context,Bundle b,ArrayList<EditText> ets,ArrayList<String> info)
     {
         this.context = context;
         forEmptyList = ets; // include all editTexts in addNewWordTab will be cleared about text
         this.info = info;
+        LoginInfo = b;
     }
 
     @Override
-    protected String doInBackground(Void... aVoid)
+    protected String doInBackground(Bundle... bundles)
     {
         String username = info.get(0);
         String word = info.get(1);
@@ -49,13 +54,16 @@ public class AddWordTask extends AsyncTask<Void,Void,String>
         try
         {
             JSONObject Info = new JSONObject();
-            Info.put("username",username);
+
             Info.put("word",word);
             Info.put("reading",reading);
             Info.put("meaning",meaning);
             Info.put("sourceId",sourceId);
             Info.put("page",page);
-            StringEntity Content = new StringEntity(Info.toString());
+            Info.put("username", LoginInfo.getString("username"));
+            Info.put("serialNum",LoginInfo.getString("serialNum"));
+            Info.put("identifier",LoginInfo.getString("identifier"));
+            StringEntity Content = new StringEntity(Info.toString(), HTTP.UTF_8);
             Content.setContentEncoding("UTF-8");
             Content.setContentType("application/json");
             DefaultHttpClient httpclient = new DefaultHttpClient();
@@ -64,6 +72,7 @@ public class AddWordTask extends AsyncTask<Void,Void,String>
             httpost.addHeader("Accept", "text/plain");
             ResponseHandler responseHandler = new BasicResponseHandler();
             JSONObject response = new JSONObject(httpclient.execute(httpost, responseHandler).toString());
+            status = response.getString("status");
             if(response.getString("status").equals("success")!=true)
                 Log.i("NewWordTask", "response status : " + response.getString("status"));
             else
@@ -96,6 +105,7 @@ public class AddWordTask extends AsyncTask<Void,Void,String>
     protected void onPostExecute(String s)
     {
         super.onPostExecute(s);
+        taskTool.checkStatusAndReturnLogin(context,status);
         if(s.equals("FAIL"))
             Log.i("AddNewWordTask","result = FAIL in onPostExecute");
         else

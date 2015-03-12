@@ -29,7 +29,6 @@ public class AddNewWordTab extends Fragment
     private EditText readingET;
     private EditText meaningET;
     private EditText pageET;
-    private String username;
     private RadioGroup sourceRadioGroup;
     private Button newSourceBtn;
     private Button submitButton;
@@ -37,7 +36,6 @@ public class AddNewWordTab extends Fragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        username = getArguments().getString("username");
     }
 
     @Override
@@ -52,7 +50,7 @@ public class AddNewWordTab extends Fragment
         pageET = (EditText)v.findViewById(R.id.pageText);
         sourceRadioGroup = (RadioGroup)v.findViewById(R.id.sourceRadioGroup);
         newSourceBtn = (Button)v.findViewById(R.id.newSourceButton);
-        RefreshRadioGroupTask task = new RefreshRadioGroupTask(getActivity(),sourceRadioGroup,newSourceBtn,username);
+        RefreshRadioGroupTask task = new RefreshRadioGroupTask(getActivity(),getArguments(),sourceRadioGroup,newSourceBtn);
         task.execute();
         submitButton.setOnClickListener(new View.OnClickListener()
         {
@@ -65,13 +63,14 @@ public class AddNewWordTab extends Fragment
                 ets.add(readingET);
                 ets.add(meaningET);
                 ets.add(pageET);
-                wordInfo.add(username);
+                wordInfo.add("");
                 wordInfo.add(wordET.getText().toString());
                 wordInfo.add(readingET.getText().toString());
                 wordInfo.add(meaningET.getText().toString());
                 wordInfo.add(String.valueOf(sourceRadioGroup.getCheckedRadioButtonId()));//if no radioBtn is checked it will be -1
                 wordInfo.add(pageET.getText().toString());
-                AddWordTask task = new AddWordTask(getActivity(),ets,wordInfo);
+
+                AddWordTask task = new AddWordTask(getActivity(),getArguments(),ets,wordInfo);
                 task.execute();
             }
         });
@@ -92,7 +91,7 @@ public class AddNewWordTab extends Fragment
                     {
                         //pass source name to NewSourceTask for network connection
                         String sourceName = input.getText().toString();
-                        NewSourceTask task = new NewSourceTask(getActivity(),username,sourceName,sourceRadioGroup,newSourceBtn);
+                        NewSourceTask task = new NewSourceTask(getActivity(),getArguments(),sourceName,sourceRadioGroup,newSourceBtn);
                         task.execute();
                         dialogInterface.cancel();
                     }

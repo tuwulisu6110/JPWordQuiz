@@ -23,12 +23,10 @@ public class ListAndSearchTab extends Fragment
     private Button searchBtn;
     private ListView wordList;
     private TextView searchTV;
-    private String username;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        username = getArguments().getString("username");
     }
 
     @Override
@@ -39,14 +37,14 @@ public class ListAndSearchTab extends Fragment
         searchBtn = (Button)v.findViewById(R.id.searchButton);
         wordList = (ListView)v.findViewById(R.id.wordList);
         searchTV = (TextView)v.findViewById(R.id.searchText);
-        FetchAndSearchTask listTask = new FetchAndSearchTask(this.getActivity(),username,wordList,"");
+        FetchAndSearchTask listTask = new FetchAndSearchTask(this.getActivity(),getArguments(),wordList,"");
         listTask.execute();
         searchBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                FetchAndSearchTask searchTask = new FetchAndSearchTask(getActivity(),username,wordList,searchTV.getText().toString());
+                FetchAndSearchTask searchTask = new FetchAndSearchTask(getActivity(),getArguments(),wordList,searchTV.getText().toString());
                 searchTask.execute();
             }
         });

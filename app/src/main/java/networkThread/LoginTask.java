@@ -24,6 +24,8 @@ public class LoginTask extends AsyncTask<String, Void, String>
 {
 	private Context context;
 	private String[] loginInfo;
+    private String identifier;
+    private String serialNum;
 	public LoginTask(Context context)
 	{
 		this.context = context;
@@ -50,7 +52,8 @@ public class LoginTask extends AsyncTask<String, Void, String>
 			String inputLine = httpclient.execute(httpost, responseHandler).toString();
 			
 		    JSONObject response = new JSONObject(inputLine);
-
+            serialNum = response.getString("serialNum");
+            identifier = response.getString("identifier");
 		    result = response.getString("status");
 		} 
 		catch (JSONException e2) 
@@ -86,6 +89,8 @@ public class LoginTask extends AsyncTask<String, Void, String>
             Intent switchIntent = new Intent(context,com.example.wordquiz.MainActivity.class);
             Bundle b = new Bundle();
             b.putString("username",loginInfo[0]);
+            b.putString("identifier",identifier);
+            b.putString("serialNum",serialNum);
             switchIntent.putExtras(b);
             context.startActivity(switchIntent);
 		}

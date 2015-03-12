@@ -2,6 +2,7 @@ package networkThread;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,16 +37,17 @@ public class FetchAndSearchTask extends AsyncTask<Void,Void,JSONArray>
     private ListView wordList;
     private String query;
     private Context context;
-    private String username;
     private JSONArray words;//this will be used in wordAdapter as itemlist input, directly use in onPostExecute()
     boolean isBackgroundTaskEnd;
-    public FetchAndSearchTask(Context c,String username,ListView lv,String query)
+    private Bundle LoginInfo;
+    private String status;
+    public FetchAndSearchTask(Context c,Bundle b,ListView lv,String query)
     {
-        this.username = username;
         wordList = lv;
         this.query = query;
         context = c;
         isBackgroundTaskEnd = false;
+        LoginInfo = b;
     }
 
 
@@ -55,8 +58,10 @@ public class FetchAndSearchTask extends AsyncTask<Void,Void,JSONArray>
         {
             JSONObject Info = new JSONObject();
             Info.put("word",query);
-            Info.put("username",username);
-            StringEntity Content = new StringEntity(Info.toString());
+            Info.put("username", LoginInfo.getString("username"));
+            Info.put("serialNum",LoginInfo.getString("serialNum"));
+            Info.put("identifier",LoginInfo.getString("identifier"));
+            StringEntity Content = new StringEntity(Info.toString(), HTTP.UTF_8);
             Content.setContentEncoding("UTF-8");
             Content.setContentType("application/json");
             DefaultHttpClient httpclient = new DefaultHttpClient();
@@ -64,6 +69,7 @@ public class FetchAndSearchTask extends AsyncTask<Void,Void,JSONArray>
             httpost.setEntity(Content);
             httpost.addHeader("Accept", "text/plain");
             JSONObject response = new JSONObject(httpclient.execute(httpost, new BasicResponseHandler()).toString());
+            status = response.getString("status");
             if(response.getString("status").equals("success")!=true)
                 Log.i("FetchAndSearchTask", "response status : " + response.getString("status"));
             else
@@ -93,6 +99,7 @@ public class FetchAndSearchTask extends AsyncTask<Void,Void,JSONArray>
     protected void onPostExecute(JSONArray words)
     {
         super.onPostExecute(words);
+        taskTool.checkStatusAndReturnLogin(context,status);
         wordList.setAdapter(new WordAdapter(context));
 
     }

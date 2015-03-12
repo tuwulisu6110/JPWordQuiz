@@ -2,6 +2,8 @@ package networkThread;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -12,6 +14,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,14 +33,15 @@ public class RefreshRadioGroupTask extends AsyncTask<Void , Void, JSONObject>
     private Context context;
     private RadioGroup sourceGroup;
     private Button addSourceBtn;
-    private String username;
     private JSONObject sourceTable;
-    public RefreshRadioGroupTask(Context context, RadioGroup rg,Button btn,String un)
+    private Bundle LoginInfo;
+    private String status;
+    public RefreshRadioGroupTask(Context context,Bundle b, RadioGroup rg,Button btn)
     {
         this.context = context;
         sourceGroup = rg;
         addSourceBtn = btn;
-        username = un;
+        LoginInfo = b;
     }
     @Override
     protected void onPreExecute()
@@ -51,9 +55,11 @@ public class RefreshRadioGroupTask extends AsyncTask<Void , Void, JSONObject>
     {
         try
         {
-            JSONObject accountInfo = new JSONObject();
-            accountInfo.put("username",username);
-            StringEntity accountContent = new StringEntity(accountInfo.toString());
+            JSONObject Info = new JSONObject();
+            Info.put("username", LoginInfo.getString("username"));
+            Info.put("serialNum",LoginInfo.getString("serialNum"));
+            Info.put("identifier",LoginInfo.getString("identifier"));
+            StringEntity accountContent = new StringEntity(Info.toString(), HTTP.UTF_8);
             accountContent.setContentEncoding("UTF-8");
             accountContent.setContentType("application/json");
             DefaultHttpClient httpclient = new DefaultHttpClient();
@@ -62,6 +68,9 @@ public class RefreshRadioGroupTask extends AsyncTask<Void , Void, JSONObject>
             httpost.addHeader("Accept", "text/plain");
             ResponseHandler responseHandler = new BasicResponseHandler();
             JSONObject response = new JSONObject(httpclient.execute(httpost, responseHandler).toString());
+            status = response.getString("status");
+            if(response.getString("status").equals("success")!=true)
+                Log.i("NewWordTask", "response status : " + response.getString("status"));
             sourceTable = response.getJSONObject("sources");
 
 
@@ -93,6 +102,7 @@ public class RefreshRadioGroupTask extends AsyncTask<Void , Void, JSONObject>
     protected void onPostExecute(JSONObject sources)
     {
         super.onPostExecute(sources);
+        taskTool.checkStatusAndReturnLogin(context,status);
         Iterator iterator = sourceTable.keys();
         while(iterator.hasNext())
         {
