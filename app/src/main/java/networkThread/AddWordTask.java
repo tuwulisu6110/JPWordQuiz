@@ -44,12 +44,12 @@ public class AddWordTask extends AsyncTask<Bundle,Void,String>
     @Override
     protected String doInBackground(Bundle... bundles)
     {
-        String username = info.get(0);
         String word = info.get(1);
         String reading = info.get(2);
         String meaning = info.get(3);
         String sourceId = info.get(4);
         String page = info.get(5);
+        String sentence = info.get(6);
         String result = "FAIL";
         try
         {
@@ -60,6 +60,7 @@ public class AddWordTask extends AsyncTask<Bundle,Void,String>
             Info.put("meaning",meaning);
             Info.put("sourceId",sourceId);
             Info.put("page",page);
+            Info.put("sentence",sentence);
             Info.put("username", LoginInfo.getString("username"));
             Info.put("serialNum",LoginInfo.getString("serialNum"));
             Info.put("identifier",LoginInfo.getString("identifier"));
