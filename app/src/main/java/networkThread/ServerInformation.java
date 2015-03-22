@@ -12,4 +12,5 @@ public class ServerInformation
     static final String serverAddSourceURL = serverURL+"/addSource";
     static final String serverAddWordURL = serverURL+"/addWord";
     static final String serverSearchURL = serverURL+"/searchWordByWordAndMeaning";
+    static final String serverDeleteWordURL = serverURL+"/deleteWord";
 }

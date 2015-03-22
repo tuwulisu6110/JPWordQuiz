@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -108,6 +111,7 @@ public class FetchAndSearchTask extends AsyncTask<Void,Void,JSONArray>
     {
         private LayoutInflater mInflater;
 
+
         public WordAdapter(Context context)
         {
             this.mInflater = LayoutInflater.from(context);
@@ -145,12 +149,60 @@ public class FetchAndSearchTask extends AsyncTask<Void,Void,JSONArray>
             TextView wordTV = (TextView)view.findViewById(R.id.wordTextView);
             TextView readingTV = (TextView)view.findViewById(R.id.readingTextView);
             TextView meaningTV = (TextView)view.findViewById(R.id.meaningTextView);
+            TextView rateTV = (TextView)view.findViewById(R.id.rateTextView);
+            final ImageButton deleteButton = (ImageButton)view.findViewById(R.id.wordDeleteButton);//prepare for adding to wordItem when long click
+            final int itemId = i;
+            deleteButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    try
+                    {
+                        JSONObject aWord = new JSONObject(words.get(itemId).toString());
+                        deleteWordTask deleteTask = new deleteWordTask(context,LoginInfo,aWord.getInt("id"),wordList);
+                        deleteTask.execute();
+                    }
+                    catch (JSONException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            view.setOnLongClickListener(new View.OnLongClickListener()
+            {
+                private boolean state;
+                {
+                    state = false;
+                }
+                @Override
+                public boolean onLongClick(View view)
+                {
+                    LinearLayout wordLayout = (LinearLayout)view.findViewById(R.id.wordLayout);
+                    //LinearLayout wordListItemLayout = (LinearLayout)view.findViewById(R.id.wordListItemLayout);
+                    if(state==false)//now this item hasn't delete button
+                    {
+                        wordLayout.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 3.0f));
+                        deleteButton.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
+                        state = true;
+                    }
+                    else
+                    {
+                        deleteButton.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 0.0f));
+                        wordLayout.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 4.0f));
+                        state = false;
+                    }
+                    return true;
+                }
+            });
             try
             {
                 JSONObject aWord = new JSONObject(words.get(i).toString());
                 wordTV.setText(aWord.getString("word"));
                 readingTV.setText(aWord.getString("reading"));
                 meaningTV.setText(aWord.getString("meaning"));
+                Double d = new Double( aWord.getDouble("rate")*100 );
+                rateTV.setText(String.valueOf(d.intValue())+"%");
             }
             catch (JSONException e)
             {
