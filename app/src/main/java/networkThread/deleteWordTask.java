@@ -22,13 +22,13 @@ import java.net.URISyntaxException;
 /**
  * Created by tuwulisu on 2015/3/22.
  */
-public class deleteWordTask extends AsyncTask<Void,Void,Boolean> // delete word then refresh word list
+public class DeleteWordTask extends AsyncTask<Void,Void,Boolean> // delete word then refresh word list
 {
     private Bundle LoginInfo;
     private int wordId;
     private Context context;
     ListView wordList;
-    public deleteWordTask(Context c,Bundle b,int wordId,ListView lv)
+    public DeleteWordTask(Context c, Bundle b, int wordId, ListView lv)
     {
         this.wordId = wordId;
         LoginInfo = b;

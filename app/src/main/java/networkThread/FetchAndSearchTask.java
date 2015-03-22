@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -16,8 +15,6 @@ import android.widget.TextView;
 
 import com.example.wordquiz.R;
 
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
@@ -160,7 +157,7 @@ public class FetchAndSearchTask extends AsyncTask<Void,Void,JSONArray>
                     try
                     {
                         JSONObject aWord = new JSONObject(words.get(itemId).toString());
-                        deleteWordTask deleteTask = new deleteWordTask(context,LoginInfo,aWord.getInt("id"),wordList);
+                        DeleteWordTask deleteTask = new DeleteWordTask(context,LoginInfo,aWord.getInt("id"),wordList);
                         deleteTask.execute();
                     }
                     catch (JSONException e)
