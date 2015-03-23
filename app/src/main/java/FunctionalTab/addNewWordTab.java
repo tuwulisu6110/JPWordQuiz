@@ -1,6 +1,7 @@
 package FunctionalTab;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.DialogPreference;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -52,6 +54,7 @@ public class AddNewWordTab extends Fragment
         sentenceET = (EditText)v.findViewById(R.id.sentenceText);
         sourceRadioGroup = (RadioGroup)v.findViewById(R.id.sourceRadioGroup);
         newSourceBtn = (Button)v.findViewById(R.id.newSourceButton);
+
         RefreshRadioGroupTask task = new RefreshRadioGroupTask(getActivity(),getArguments(),sourceRadioGroup,newSourceBtn);
         task.execute();
         submitButton.setOnClickListener(new View.OnClickListener()

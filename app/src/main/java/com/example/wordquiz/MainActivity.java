@@ -23,9 +23,11 @@ public class MainActivity extends FragmentActivity
         setContentView(R.layout.fragment_tabs);
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
-        mTabHost.addTab(mTabHost.newTabSpec("newWord").setIndicator("New Word"), AddNewWordTab.class, getIntent().getExtras());
         mTabHost.addTab(mTabHost.newTabSpec("words").setIndicator("Words"), ListAndSearchTab.class ,getIntent().getExtras());
         mTabHost.addTab(mTabHost.newTabSpec("quiz").setIndicator("Quiz"), QuizTab.class ,getIntent().getExtras());
+        mTabHost.addTab(mTabHost.newTabSpec("newWord").setIndicator("New Word"), AddNewWordTab.class, getIntent().getExtras());
+
+
         //TabManager tm = new TabManager(this,mTabHost,R.id.realtabcontent);
 //        mTabHost.addTab(mTabHost.newTabSpec("functions").setIndicator("Functions"),
 //                FunctionalTab.class, null);

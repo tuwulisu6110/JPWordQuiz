@@ -11,6 +11,7 @@ import android.content.Context;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -37,6 +38,11 @@ public class LoginActivity extends Activity
 			@Override
 			public void onClick(View v) 
 			{
+                InputMethodManager inputManager =
+                        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(
+                        getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
 				String[] loginInfo = new String[2];
 				loginInfo[0] = usernameET.getText().toString();
 				loginInfo[1] = passwordET.getText().toString();
@@ -56,12 +62,14 @@ public class LoginActivity extends Activity
 			@Override
 			public void onClick(View v) 
 			{
+
 				String[] loginInfo = new String[2];
 				loginInfo[0] = usernameET.getText().toString();
 				loginInfo[1] = passwordET.getText().toString();
 				RegisterTask rt = new RegisterTask(context);
 				rt.execute(loginInfo);
-			}
+
+            }
 		});
 		
 		
