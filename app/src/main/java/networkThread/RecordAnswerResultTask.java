@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ListView;
 
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -20,30 +19,32 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- * Created by tuwulisu on 2015/3/22.
+ * Created by tuwulisu on 2015/3/23.
  */
-public class DeleteWordTask extends AsyncTask<Void,Void,Boolean> // delete word then refresh word list
+public class RecordAnswerResultTask extends AsyncTask<Void,Void,Void>
 {
-    private Bundle LoginInfo;
     private int wordId;
+    private int result;
+    private Bundle LoginInfo;
     private Context context;
-    ListView wordList;
-    String status;
-    public DeleteWordTask(Context c, Bundle b, int wordId, ListView lv)
+    private String status;
+    public RecordAnswerResultTask(Context c,int wordId,int r,Bundle b)
     {
+        super();
         this.wordId = wordId;
+        result = r;
         LoginInfo = b;
         context = c;
-        wordList = lv;
     }
 
     @Override
-    protected Boolean doInBackground(Void... voids)
+    protected Void doInBackground(Void... voids)
     {
         try
         {
             JSONObject Info = new JSONObject();
-            Info.put("wordId",wordId);
+            Info.put("wordId",String.valueOf(wordId));
+            Info.put("result",String.valueOf(result));
             Info.put("username", LoginInfo.getString("username"));
             Info.put("serialNum",LoginInfo.getString("serialNum"));
             Info.put("identifier",LoginInfo.getString("identifier"));
@@ -51,15 +52,14 @@ public class DeleteWordTask extends AsyncTask<Void,Void,Boolean> // delete word 
             Content.setContentEncoding("UTF-8");
             Content.setContentType("application/json");
             DefaultHttpClient httpclient = new DefaultHttpClient();
-            HttpPost httpost = new HttpPost(new URI(ServerInformation.serverDeleteWordURL));
+            HttpPost httpost = new HttpPost(new URI(ServerInformation.serverRecordAnswerResultURL));
             httpost.setEntity(Content);
             httpost.addHeader("Accept", "text/plain");
             JSONObject response = new JSONObject(httpclient.execute(httpost, new BasicResponseHandler()).toString());
             status = response.getString("status");
             if(status.equals("success")!=true)
                 Log.i("DeleteWordTask", "response status : " + response.getString("status"));
-            else
-                return true;
+
 
         }
         catch (UnsupportedEncodingException e)
@@ -78,21 +78,14 @@ public class DeleteWordTask extends AsyncTask<Void,Void,Boolean> // delete word 
         {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     @Override
-    protected void onPostExecute(Boolean b)
+    protected void onPostExecute(Void aVoid)
     {
-        super.onPostExecute(b);
+        super.onPostExecute(aVoid);
         if(taskTool.checkStatusAndReturnLogin(context,status))
             return;
-        if(b==false)
-            return;
-        else
-        {
-            FetchAndSearchTask listTask = new FetchAndSearchTask(context,LoginInfo,wordList,"");
-            listTask.execute();
-        }
     }
 }
