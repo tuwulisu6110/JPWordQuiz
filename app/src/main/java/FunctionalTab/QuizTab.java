@@ -41,7 +41,6 @@ public class QuizTab extends Fragment
         answersRegionLayout = (LinearLayout)v.findViewById(R.id.answersRegionLayout);
         Button nextQuestionButton = (Button)v.findViewById(R.id.nextQuestionButton);
         TextView questionTypeTV = (TextView)v.findViewById(R.id.questionTypeTextView);
-        questionTypeTV.setText("読み方");
         questionTypeTV.setTextSize(30);
         answerResultTV = (TextView)v.findViewById(R.id.answerResultTextView);
         answerResultTV.setTextSize(30);

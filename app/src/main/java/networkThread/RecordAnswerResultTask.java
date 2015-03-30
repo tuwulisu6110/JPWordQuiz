@@ -44,7 +44,7 @@ public class RecordAnswerResultTask extends AsyncTask<Void,Void,Void>
         {
             JSONObject Info = new JSONObject();
             Info.put("wordId",String.valueOf(wordId));
-            Info.put("result",String.valueOf(result));
+            Info.put("result",result);
             Info.put("username", LoginInfo.getString("username"));
             Info.put("serialNum",LoginInfo.getString("serialNum"));
             Info.put("identifier",LoginInfo.getString("identifier"));

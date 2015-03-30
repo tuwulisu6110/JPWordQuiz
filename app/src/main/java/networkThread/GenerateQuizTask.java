@@ -26,6 +26,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Random;
 
+import customizedObject.MeaningQuiz;
+import customizedObject.QuizGenerator;
+import customizedObject.ReadingQuiz;
 import customizedView.AnswerButton;
 
 /**
@@ -115,7 +118,13 @@ public class GenerateQuizTask extends AsyncTask<Void,Void,String>
         if(taskTool.checkStatusAndReturnLogin(context,status))
             return;
         nextQuestionButton.setEnabled(true);
-        int numOfAnswers = answersRegionLayout.getChildCount();
+        QuizGenerator quizGenerator;
+        if(rand.nextBoolean())
+            quizGenerator = new ReadingQuiz(activeView,words);
+        else
+            quizGenerator = new MeaningQuiz(activeView,words);
+        quizGenerator.generateQuiz();
+        /*int numOfAnswers = answersRegionLayout.getChildCount();
         int correctAnswerId = rand.nextInt(numOfAnswers);
         try
         {
@@ -131,6 +140,6 @@ public class GenerateQuizTask extends AsyncTask<Void,Void,String>
         catch (JSONException e)
         {
             e.printStackTrace();
-        }
+        }*/
     }
 }
