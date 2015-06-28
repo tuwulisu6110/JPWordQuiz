@@ -39,6 +39,7 @@ public class ListAndSearchTab extends Fragment
         searchTV = (TextView)v.findViewById(R.id.searchText);
         FetchAndSearchTask listTask = new FetchAndSearchTask(this.getActivity(),getArguments(),wordList,"");
         listTask.execute();
+
         searchBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override

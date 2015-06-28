@@ -1,6 +1,7 @@
 package FunctionalTab;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -12,13 +13,16 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.example.wordquiz.R;
 
 import java.util.ArrayList;
 
 import networkThread.AddWordTask;
+import networkThread.ListAllReadingByWordTask;
 import networkThread.NewSourceTask;
 import networkThread.RefreshRadioGroupTask;
 
@@ -35,6 +39,7 @@ public class AddNewWordTab extends Fragment
     private RadioGroup sourceRadioGroup;
     private Button newSourceBtn;
     private Button submitButton;
+    private Button resolveReadingButton;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -54,9 +59,23 @@ public class AddNewWordTab extends Fragment
         sentenceET = (EditText)v.findViewById(R.id.sentenceText);
         sourceRadioGroup = (RadioGroup)v.findViewById(R.id.sourceRadioGroup);
         newSourceBtn = (Button)v.findViewById(R.id.newSourceButton);
+        resolveReadingButton = (Button)v.findViewById(R.id.resolveReadingButton);
 
         RefreshRadioGroupTask task = new RefreshRadioGroupTask(getActivity(),getArguments(),sourceRadioGroup,newSourceBtn);
         task.execute();
+        resolveReadingButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.setContentView(R.layout.list_all_reading_popup);
+                ListView readingList = (ListView) dialog.findViewById(R.id.readingSelectionList);
+                dialog.show();
+                String queryWord = wordET.getText().toString();
+                ListAllReadingByWordTask listAllReadingByWordTask = new ListAllReadingByWordTask(getActivity(),getArguments(),readingET,dialog,queryWord);
+                listAllReadingByWordTask.execute();
+            }
+        });
         submitButton.setOnClickListener(new View.OnClickListener()
         {
             @Override

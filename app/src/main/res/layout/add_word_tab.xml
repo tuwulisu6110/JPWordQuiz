@@ -40,12 +40,28 @@
                 android:layout_weight="0.05"
                 android:textSize="10pt"/>
 
-            <EditText
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/readingText"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="5pt"/>
+                android:layout_margin="5pt"
+                android:weightSum="2">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/readingText"
+                    android:layout_weight="0.5"/>
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Resolve"
+                    android:id="@+id/resolveReadingButton"
+                    android:layout_weight="1.5"/>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="70dp"
